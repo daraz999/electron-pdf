@@ -86,18 +86,20 @@ function render (indexUrl, output) {
   }
 
   win.webContents.on('did-finish-load', function () {
-    win.webContents.printToPDF(opts, function (err, data) {
-      if (err) {
-        console.error(err)
-      }
-
-      fs.writeFile(path.resolve(output), data, function (err) {
+    setTimeout(function () {
+      win.webContents.printToPDF(opts, function (err, data) {
         if (err) {
           console.error(err)
         }
-        app.quit()
+
+        fs.writeFile(path.resolve(output), data, function (err) {
+          if (err) {
+            console.error(err)
+          }
+          app.quit()
+        })
       })
-    })
+    });
   })
 }
 
