@@ -24,6 +24,8 @@ if (argv.h || argv.help) {
   usage(1)
 }
 
+app.commandLine.appendSwitch('ignore-certificate-errors', 'true');
+
 app.on('ready', appReady)
 
 app.on('window-all-closed', function () {
@@ -86,6 +88,10 @@ function render (indexUrl, output) {
   }
 
   win.webContents.on('did-finish-load', function () {
+
+
+
+
     setTimeout(function () {
       win.webContents.printToPDF(opts, function (err, data) {
         if (err) {
